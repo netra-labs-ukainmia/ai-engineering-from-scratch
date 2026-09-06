@@ -1,0 +1,19 @@
+FROM python:3.12-slim
+
+ENV PYTHONUNBUFFERED=1
+
+RUN python -m pip install --no-cache-dir \
+    torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 \
+    --index-url https://download.pytorch.org/whl/cpu
+
+RUN python -m pip install --no-cache-dir \
+    numpy pandas scikit-learn matplotlib jupyter \
+    transformers datasets accelerate safetensors flask
+
+WORKDIR /workspace
+
+VOLUME ["/workspace", "/models"]
+
+EXPOSE 8888
+
+CMD ["python"]
