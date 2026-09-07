@@ -1,0 +1,12 @@
+FROM python:3.12-slim
+
+ENV PYTHONUNBUFFERED=1
+
+# Compatibility environment for the early-stop Wikipedia streaming exercise.
+# The course's datasets 5.0.1 reader crashed during shutdown with PyArrow 25.0.1.
+RUN python -m pip install --no-cache-dir \
+    datasets==3.1.0 pyarrow==25.0.1 huggingface_hub==1.30.0
+
+WORKDIR /workspace
+
+CMD ["python", "stream_wikipedia_compat.py"]
